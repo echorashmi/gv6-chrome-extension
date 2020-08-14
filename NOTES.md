@@ -1,3 +1,6 @@
+Chrome Extension - followed the documentation from: 
+https://developer.chrome.com/extensions/getstarted
+
 persistent = false in chrome extension is an interesting feature. Here's what it does:
 
 If no listeners were invoked for 5 seconds, the background page automatically unloads. 
