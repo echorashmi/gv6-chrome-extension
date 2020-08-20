@@ -1,0 +1,7 @@
+{
+  "name": "gvApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
