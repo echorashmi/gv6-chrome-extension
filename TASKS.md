@@ -23,6 +23,8 @@ Task 5:
 Task 6: (Clean Ups)
 - Remove unused CSS and Imports: In App.tsx there are multiple CSS files that I can potentially remove.
 - getFeed is console logging twice, not sure why, will need to clean this up. 
+- I added a "noImplicitAny": false in tsconfig.json, would want to set this to true to enable this back again.
+- Change getFeed to read from local file
 
 
 Setup Tasks:
@@ -30,5 +32,6 @@ Done 1: Install & Setup IONIC
 2: Represent content.JSON as IONIC Cards on the page 
 Done: 2a) Load the JSON File - See Line 60 in Home.tsx:
 Done: 2b) Display in Card Format - Image, Content & Buttons
-2c) Display cards using a For Loop / Array Map
-2d) Display cards using live JSON Data
+Done: 2c) Display cards using a For Loop / Array Map
+Done: 2d) Display cards using live JSON Data
+3: Break out Cards after 4 columns

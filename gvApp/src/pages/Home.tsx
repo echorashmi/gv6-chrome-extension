@@ -37,7 +37,7 @@ class RenderCard extends React.Component<{
   }
 }
 
-class RenderPage extends React.Component{
+class RenderPage extends React.Component<{}, any>{
 
   constructor(props:string){
       super(props);
@@ -49,12 +49,12 @@ class RenderPage extends React.Component{
   
   getFeed()
   {
-      fetch("http://localhost:8100/assets/gvArticleFeed.json")
+      fetch("https://gvn6-13a2f.web.app/assets/gvArticleFeed.json")
       .then(res => res.json())
-      .then(json => {
+      .then((json) => {
           this.setState({
               isLoaded: true,
-              items: json,
+              items: json.PERS,
           })
       });
       //this.state.items has the JSON Feed in it. 
@@ -63,52 +63,28 @@ class RenderPage extends React.Component{
   render(){
     var feeds = this.getFeed();
 
+    const {isLoaded, items} = this.state;
 
     return (
-<IonPage>
+    <IonPage>
       <IonContent>
         <IonGrid>
           <IonRow>
-              <IonCol>
-                  <RenderCard 
-                    subtitle="newswire.ca"
-                    title="ImagineAR Announces The Appointment of Gus Frerotte, Former NFL Pro Bowler QB, as Advisor For Augmented Reality Fan Engagement For Professional Sports"
-                    link="https://www.newswire.ca/news-releases/imaginear-announces-the-appointment-of-gus-frerotte-former-nfl-pro-bowler-qb-as-advisor-for-augmented-reality-fan-engagement-for-professional-sports-883634008.html"
-                    imgsrc= "https://mma.prnewswire.com/media/1230425/ImagineAR_ImagineAR_Announces_The_Appointment_of_Gus_Frerotte__F.jpg?p=facebook"
-                    content="/CNW/ - ImagineAR (CSE:IP) (OTCQB: IPNFF) an Augmented Reality Company that enables sports organizations, venues and brands to create their own mobile phone AR..." />
-              </IonCol>
-
-              <IonCol>
-                  <RenderCard 
-                    subtitle="newswire.ca"
-                    title="ImagineAR Announces The Appointment of Gus Frerotte, Former NFL Pro Bowler QB, as Advisor For Augmented Reality Fan Engagement For Professional Sports"
-                    link="https://www.newswire.ca/news-releases/imaginear-announces-the-appointment-of-gus-frerotte-former-nfl-pro-bowler-qb-as-advisor-for-augmented-reality-fan-engagement-for-professional-sports-883634008.html"
-                    imgsrc= "https://mma.prnewswire.com/media/1230425/ImagineAR_ImagineAR_Announces_The_Appointment_of_Gus_Frerotte__F.jpg?p=facebook"
-                    content="/CNW/ - ImagineAR (CSE:IP) (OTCQB: IPNFF) an Augmented Reality Company that enables sports organizations, venues and brands to create their own mobile phone AR..." />
-              </IonCol>
-
-              <IonCol>
-                  <RenderCard 
-                    subtitle="newswire.ca"
-                    title="ImagineAR Announces The Appointment of Gus Frerotte, Former NFL Pro Bowler QB, as Advisor For Augmented Reality Fan Engagement For Professional Sports"
-                    link="https://www.newswire.ca/news-releases/imaginear-announces-the-appointment-of-gus-frerotte-former-nfl-pro-bowler-qb-as-advisor-for-augmented-reality-fan-engagement-for-professional-sports-883634008.html"
-                    imgsrc= "https://mma.prnewswire.com/media/1230425/ImagineAR_ImagineAR_Announces_The_Appointment_of_Gus_Frerotte__F.jpg?p=facebook"
-                    content="/CNW/ - ImagineAR (CSE:IP) (OTCQB: IPNFF) an Augmented Reality Company that enables sports organizations, venues and brands to create their own mobile phone AR..." />
-              </IonCol>
-
-              <IonCol>
-                  <RenderCard 
-                    subtitle="newswire.ca"
-                    title="ImagineAR Announces The Appointment of Gus Frerotte, Former NFL Pro Bowler QB, as Advisor For Augmented Reality Fan Engagement For Professional Sports"
-                    link="https://www.newswire.ca/news-releases/imaginear-announces-the-appointment-of-gus-frerotte-former-nfl-pro-bowler-qb-as-advisor-for-augmented-reality-fan-engagement-for-professional-sports-883634008.html"
-                    imgsrc= "https://mma.prnewswire.com/media/1230425/ImagineAR_ImagineAR_Announces_The_Appointment_of_Gus_Frerotte__F.jpg?p=facebook"
-                    content="/CNW/ - ImagineAR (CSE:IP) (OTCQB: IPNFF) an Augmented Reality Company that enables sports organizations, venues and brands to create their own mobile phone AR..." />
-              </IonCol>
-
+                  {
+                    items.map((item, key) => (
+                      <IonCol size="3">
+                        <RenderCard 
+                            subtitle={item.Domain}
+                            title={item.Title}
+                            link={item.Link}
+                            imgsrc={item.Image}
+                            content={item.Description} />  
+                      </IonCol>
+                    ))
+                  }
             </IonRow>
           </IonGrid>
       </IonContent>
-
     </IonPage>
     )
   }
