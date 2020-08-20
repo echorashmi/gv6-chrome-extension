@@ -29,3 +29,4 @@ Task 6: (Clean Ups)
 - getFeed is console logging twice, not sure why, will need to clean this up. 
 - I added a "noImplicitAny": false in tsconfig.json, would want to set this to true to enable this back again.
 - Change getFeed to read from local file
+- Add rows (currently everything is in a single row, bad design, looks terrible on mobile)
