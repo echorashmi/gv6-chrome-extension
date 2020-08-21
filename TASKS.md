@@ -9,18 +9,15 @@ Group By:
 - [Magic]
 
 Task 2: When a user clicks on any of them, reorder the page "cards" to group by these 3. 
-2.a) Identify the cards groupable by provided groupByVariable and re-structure the JSON to include this Grouping. - Practice JSON Fiddle: https://jsfiddle.net/gfktLp73/10/
+DONE 2.a) Identify the cards groupable by provided groupByVariable and re-structure the JSON to include this Grouping. - Practice JSON Fiddle: https://jsfiddle.net/p0gytdsL/25/. //What's Pending on the Fiddle?  //TODO: Check if label already exists in the workingJsonObject. Done!!
 2.b) Create Separate Sections of the Page for each of those groupings (good place to use a grid inside the parent grid)
 2.c) Render the cards as per the grouping provided
 
 Task 3: 
-- Once done, show a "schedule by group" popup (fill this with static values for this demo).
-
-Task 4: 
-- Store this schedule in a Mongo / Node backend. 
+- Once done, save this grouping in the backend. - Node/Mongo
 
 Task 5: 
-- Write a cron job to pull out the feeds and email the posts over as they are done. 
+- On Page load, get the data stored in the database to identify the grouping of values. 
 
 Task 6: (Clean Ups)
 - Remove unused CSS and Imports: In App.tsx there are multiple CSS files that I can potentially remove.

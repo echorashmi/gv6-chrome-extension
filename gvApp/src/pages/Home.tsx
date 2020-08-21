@@ -1,16 +1,8 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonCheckbox, IonLabel, IonNote, IonBadge, IonFab, IonFabButton, IonIcon } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
 import { IonSegment, IonSegmentButton, } from '@ionic/react';
-import { call, home, heart, star, globe, basket, bookmark } from 'ionicons/icons';
 import React from 'react';
-import ExploreContainer from '../components/ExploreContainer';
-import { add } from 'ionicons/icons';
 import './Home.css';
-import { RouteComponentProps } from 'react-router';
-
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent,IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
-import { pin, wifi, wine, warning, walk } from 'ionicons/icons';
-import { resolve } from 'url';
-import ReactDOM from 'react-dom';
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol } from '@ionic/react';
 
 class RenderCard extends React.Component<{
     title: string, 
@@ -22,7 +14,7 @@ class RenderCard extends React.Component<{
   render(){
     return (
       <IonCard button={true} target="_blank" href={this.props.link}>
-                <img src={this.props.imgsrc} />
+                <img src={this.props.imgsrc} alt="" />
         <IonCardHeader>
           <IonCardSubtitle>
               {this.props.subtitle}
@@ -40,7 +32,6 @@ class RenderCard extends React.Component<{
 }
 
 class RenderPage extends React.Component<{}, any>{
-
   constructor(props:string){
       super(props);
       this.state = {
@@ -63,9 +54,9 @@ class RenderPage extends React.Component<{}, any>{
   }
 
   reorderCards(groupByVariable){
-    //Reorder Cards on the Page given this setting?
-    //Practice Fiddle: https://jsfiddle.net/gfktLp73/10/
-    switch(groupByVariable){
+     var newJsonObject = convertJsonObject(this.state.items, groupByVariable);
+     console.log(newJsonObject);
+     switch(groupByVariable){
       case 'domain':
         console.log("Domain Grouping");
         break;
@@ -126,3 +117,45 @@ class RenderPage extends React.Component<{}, any>{
 }
 
 export default RenderPage;
+
+function convertJsonObject(originalJsonObject, groupByVariable){
+  var arrKeys:any = new Array();
+  var workingJsonObject = new Object(); 
+  
+
+  for (var i = 0; i < originalJsonObject.length; i++) {
+    switch(groupByVariable)
+      {
+          case 'domain':
+            var label = originalJsonObject[i].Domain;
+            break;
+          case 'category':
+            var label = originalJsonObject[i].Content;
+            break;
+          case 'score':
+            var label = originalJsonObject[i].Score;
+            break;
+      }
+    
+
+    arrKeys = Object.keys(workingJsonObject);
+    if(arrKeys.includes(label)){
+
+      //Check if it is already an array, then push this new value to it
+      if(Array.isArray(workingJsonObject[label])){
+        workingJsonObject[label].push(originalJsonObject[i]);
+      }
+      else{
+        var temp = workingJsonObject[label];
+        workingJsonObject[label] = [];
+        workingJsonObject[label].push(temp);
+        workingJsonObject[label].push(originalJsonObject[i]);
+      }
+    }
+    else{
+      workingJsonObject[label] = originalJsonObject[i];
+    }
+  }
+  
+  return workingJsonObject;
+}
