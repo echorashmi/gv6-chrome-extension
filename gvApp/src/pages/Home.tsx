@@ -1,4 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonCheckbox, IonLabel, IonNote, IonBadge, IonFab, IonFabButton, IonIcon } from '@ionic/react';
+import { IonSegment, IonSegmentButton, } from '@ionic/react';
+import { call, home, heart, star, globe, basket, bookmark } from 'ionicons/icons';
 import React from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import { add } from 'ionicons/icons';
@@ -49,7 +51,7 @@ class RenderPage extends React.Component<{}, any>{
   
   getFeed()
   {
-      fetch("https://gvn6-13a2f.web.app/assets/gvArticleFeed.json")
+      fetch("http://localhost:8100/assets/gvArticleFeed.json")
       .then(res => res.json())
       .then((json) => {
           this.setState({
@@ -60,6 +62,22 @@ class RenderPage extends React.Component<{}, any>{
       //this.state.items has the JSON Feed in it. 
   }
 
+  reorderCards(groupByVariable){
+    //Reorder Cards on the Page given this setting?
+    //Practice Fiddle: https://jsfiddle.net/gfktLp73/10/
+    switch(groupByVariable){
+      case 'domain':
+        console.log("Domain Grouping");
+        break;
+      case 'category':
+        console.log("Category Grouping");
+        break;
+      case 'score':
+        console.log("Score Grouping");
+        break;
+    }
+  }
+
   render(){
     var feeds = this.getFeed();
 
@@ -67,7 +85,23 @@ class RenderPage extends React.Component<{}, any>{
 
     return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar>
+            <IonSegment color="secondary" onIonChange={e => this.reorderCards(e.detail.value)}>
+              <IonSegmentButton value="domain">
+                Group by Domain
+              </IonSegmentButton>
+              <IonSegmentButton value="category">
+                Group by Category
+              </IonSegmentButton>
+              <IonSegmentButton value="score">
+                Group by Score
+              </IonSegmentButton>
+            </IonSegment>
+        </IonToolbar>
+      </IonHeader>
       <IonContent>
+
         <IonGrid>
           <IonRow>
                   {
@@ -84,6 +118,7 @@ class RenderPage extends React.Component<{}, any>{
                   }
             </IonRow>
           </IonGrid>
+
       </IonContent>
     </IonPage>
     )
