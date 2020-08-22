@@ -38,16 +38,20 @@ class RenderPage extends React.Component<{}, any>{
         items: [],
         isLoaded: false,
       }
+      if(!this.state.groupByVariable){
+        var feeds = this.getFeed(); //Where else can I call this function?
+      }
   }
-  
+
   getFeed()
   {
-      fetch("http://localhost:8100/assets/gvArticleFeed.json")
+      fetch("http://localhost:8100/assets/gvArticleFeedTwo.json")
       .then(res => res.json())
       .then((json) => {
           this.setState({
               isLoaded: true,
               items: json.PERS,
+              isGrouped: false
           })
       });
       //this.state.items has the JSON Feed in it. 
@@ -55,6 +59,12 @@ class RenderPage extends React.Component<{}, any>{
 
   reorderCards(groupByVariable){
      var newJsonObject = convertJsonObject(this.state.items, groupByVariable);
+     this.setState({
+       isLoaded: true,
+       items: newJsonObject,
+       isGrouped: groupByVariable
+     });
+     //this.forceUpdate();
      console.log(newJsonObject);
      switch(groupByVariable){
       case 'domain':
@@ -70,10 +80,7 @@ class RenderPage extends React.Component<{}, any>{
   }
 
   render(){
-    var feeds = this.getFeed();
-
     const {isLoaded, items} = this.state;
-
     return (
     <IonPage>
       <IonHeader>
@@ -94,16 +101,13 @@ class RenderPage extends React.Component<{}, any>{
       <IonContent>
 
         <IonGrid>
-        <IonToolbar>
-            <IonTitle>Domain 1:</IonTitle>
-        </IonToolbar>
           <IonRow>
                   {
                     items.map((item, key) => (
                       <IonCol size="3">
                         <RenderCard 
                             subtitle={item.Domain}
-                            title={item.Title}
+                            title={item.Content}
                             link={item.Link}
                             imgsrc={item.Image}
                             content={item.Description} />  
@@ -124,9 +128,10 @@ export default RenderPage;
 function convertJsonObject(originalJsonObject, groupByVariable){
   var arrKeys:any = new Array();
   var workingJsonObject = new Object(); 
-  
+  var reorderedJsonObject = new Array();
+  var originalLength = originalJsonObject.length;
 
-  for (var i = 0; i < originalJsonObject.length; i++) {
+  for (var i = 0; i < originalLength; i++) {
     switch(groupByVariable)
       {
           case 'domain':
@@ -139,7 +144,6 @@ function convertJsonObject(originalJsonObject, groupByVariable){
             var label = originalJsonObject[i].Score;
             break;
       }
-    
 
     arrKeys = Object.keys(workingJsonObject);
     if(arrKeys.includes(label)){
@@ -157,8 +161,17 @@ function convertJsonObject(originalJsonObject, groupByVariable){
     }
     else{
       workingJsonObject[label] = originalJsonObject[i];
+      if(groupByVariable == 'score'){
+        reorderedJsonObject.push(originalJsonObject[i]);
+      }
     }
   }
-  
-  return workingJsonObject;
+
+  Object.keys(workingJsonObject).forEach(function(key){
+      for(i = 0; i < workingJsonObject[key].length; i++){
+        reorderedJsonObject.push(workingJsonObject[key][i]);
+      }
+  });
+
+  return reorderedJsonObject;
 }

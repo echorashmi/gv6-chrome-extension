@@ -12,8 +12,9 @@ Task 2: When a user clicks on any of them, reorder the page "cards" to group by 
 DONE 2.a) Identify the cards groupable by provided groupByVariable and re-structure the JSON to include this Grouping. - Practice JSON Fiddle: https://jsfiddle.net/p0gytdsL/25/. //What's Pending on the Fiddle?  //TODO: Check if label already exists in the workingJsonObject. Done!!
 DONE 2.b) Create Separate Sections of the Page for each of those groupings - using <ion-toolbar>. Easy Peasy.
 2.c) Render the cards as per the grouping provided
-2.c.a) Figure out how to update the cards based on an event
+DONE 2.c.a) Figure out how to update the cards based on an event
 2.c.b) Display cards of similar Domain side by side to each other. 
+2.c.d) Find where to move this call to. var feeds = this.getFeed();  I believe what's happening is that on forceUpdate() the feeds are fetched fresh from the JSON file again. 
 
 Task 3: 
 - Once done, save this grouping in the backend. - Node/Mongo
@@ -28,6 +29,8 @@ Task 6: (Clean Ups)
 - Change getFeed to read from local file
 - Break out Cards after 4 columns
 - Fix height of cards to all be the same. Right now they are randomized height. 
+- Change feed file back to gvArticleFeed.json
+- Change Title back to title={item.Title} instead of title={item.Content} (done currently for testing the groupings)
 
 
 Setup Tasks:
