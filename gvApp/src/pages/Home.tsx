@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonToolbar, IonTitle } from '@ionic/react';
 import { IonSegment, IonSegmentButton, } from '@ionic/react';
 import React from 'react';
 import './Home.css';
@@ -94,6 +94,9 @@ class RenderPage extends React.Component<{}, any>{
       <IonContent>
 
         <IonGrid>
+        <IonToolbar>
+            <IonTitle>Domain 1:</IonTitle>
+        </IonToolbar>
           <IonRow>
                   {
                     items.map((item, key) => (

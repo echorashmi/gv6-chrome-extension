@@ -10,8 +10,10 @@ Group By:
 
 Task 2: When a user clicks on any of them, reorder the page "cards" to group by these 3. 
 DONE 2.a) Identify the cards groupable by provided groupByVariable and re-structure the JSON to include this Grouping. - Practice JSON Fiddle: https://jsfiddle.net/p0gytdsL/25/. //What's Pending on the Fiddle?  //TODO: Check if label already exists in the workingJsonObject. Done!!
-2.b) Create Separate Sections of the Page for each of those groupings (good place to use a grid inside the parent grid)
+DONE 2.b) Create Separate Sections of the Page for each of those groupings - using <ion-toolbar>. Easy Peasy.
 2.c) Render the cards as per the grouping provided
+2.c.a) Figure out how to update the cards based on an event
+2.c.b) Display cards of similar Domain side by side to each other. 
 
 Task 3: 
 - Once done, save this grouping in the backend. - Node/Mongo
