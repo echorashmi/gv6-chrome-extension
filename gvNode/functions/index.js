@@ -1,22 +1,21 @@
-/*
-Task:
-DONE 1. Connect to MongoDB
-DONE 2. Store a hardcoded value in MongoDB
-DONE 3. Retrieve the value in MongoDB
-DONE 4. Create a REST Endpoint 
-DONE 5. Update REST Endpoint to Post and Get for both the services above i.e. 2 and 3. 
-DONE 6. Database is hosted on Atlas
-DONE 7. Debug why I am getting the "Topology was destroyed error"
-DONE 8. Find out how to deploy Node to git without exposing the db creds
-9. Deploy to Firebase or Heroku and test the Endpoints GET and POST endpoints using Postman
-*/
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//   functions.logger.info("Hello logs!", {structuredData: true});
+//   response.send("Hello from Firebase!");
+// });
+const functions = require('firebase-functions');
 
-//Create a Basic App:
+// The Firebase Admin SDK to access Cloud Firestore.
+const admin = require('firebase-admin');
+admin.initializeApp();
+
 const http = require('http');
 const qs = require('querystring');
 const url = require('url');
 
-const Config = require('./model.js');
+const Config = require('.././model.js');
 
 const hostname = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 3030;

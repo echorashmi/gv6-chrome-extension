@@ -18,6 +18,11 @@ DONE 2.c.d) Find where to move this call to. var feeds = this.getFeed();  I beli
 
 Task 3: 
 - Once done, save this grouping in the backend. - Node/Mongo
+DONE 3.a: Do this locally
+3.b) Figure out how to host this on a production environment
+
+Task 4:
+- Connect React Frontend to Node Backend
 
 Task 5: 
 - On Page load, get the data stored in the database to identify the grouping of values.
