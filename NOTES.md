@@ -41,3 +41,9 @@ ReactDOM.render(
 );
 ```
 
+File Structure in Ionic / React:
+- src/
+-- app/
+-- assets/
+-- environments/
+-- theme/

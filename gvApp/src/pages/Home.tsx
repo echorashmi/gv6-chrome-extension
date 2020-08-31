@@ -3,6 +3,7 @@ import { IonSegment, IonSegmentButton, } from '@ionic/react';
 import React from 'react';
 import './Home.css';
 import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { convertJsonObject } from '../hooks/algorithms'; 
 
 class RenderCard extends React.Component<{
     title: string, 
@@ -37,15 +38,19 @@ class RenderPage extends React.Component<{}, any>{
       this.state = {
         items: [],
         isLoaded: false,
+        isGrouped: false,
+        groupType: false
       }
       if(!this.state.groupByVariable){
         var feeds = this.getFeed(); //Where else can I call this function?
+        var config = this.getConfig();
+        console.log(config); 
       }
   }
 
   getFeed()
   {
-      fetch("http://localhost:8100/assets/gvArticleFeedTwo.json")
+      fetch("http://localhost:8100/assets/gvArticleFeed.json")
       .then(res => res.json())
       .then((json) => {
           this.setState({
@@ -57,6 +62,18 @@ class RenderPage extends React.Component<{}, any>{
       //this.state.items has the JSON Feed in it. 
   }
 
+  getConfig()
+  {
+    fetch("http://127.0.0.1:3030/config")
+      .then(res => res.json())
+      .then((json) => {
+          this.setState({
+              isGrouped: true,
+              groupType: json._groupByType
+          });
+      });
+  }
+
   reorderCards(groupByVariable){
      var newJsonObject = convertJsonObject(this.state.items, groupByVariable);
      this.setState({
@@ -64,6 +81,7 @@ class RenderPage extends React.Component<{}, any>{
        items: newJsonObject,
        isGrouped: groupByVariable
      });
+     console.log(this.state.items);
      //this.forceUpdate();
      console.log(newJsonObject);
      switch(groupByVariable){
@@ -124,54 +142,3 @@ class RenderPage extends React.Component<{}, any>{
 }
 
 export default RenderPage;
-
-function convertJsonObject(originalJsonObject, groupByVariable){
-  var arrKeys:any = new Array();
-  var workingJsonObject = new Object(); 
-  var reorderedJsonObject = new Array();
-  var originalLength = originalJsonObject.length;
-
-  for (var i = 0; i < originalLength; i++) {
-    switch(groupByVariable)
-      {
-          case 'domain':
-            var label = originalJsonObject[i].Domain;
-            break;
-          case 'category':
-            var label = originalJsonObject[i].Content;
-            break;
-          case 'score':
-            var label = originalJsonObject[i].Score;
-            break;
-      }
-
-    arrKeys = Object.keys(workingJsonObject);
-    if(arrKeys.includes(label)){
-
-      //Check if it is already an array, then push this new value to it
-      if(Array.isArray(workingJsonObject[label])){
-        workingJsonObject[label].push(originalJsonObject[i]);
-      }
-      else{
-        var temp = workingJsonObject[label];
-        workingJsonObject[label] = [];
-        workingJsonObject[label].push(temp);
-        workingJsonObject[label].push(originalJsonObject[i]);
-      }
-    }
-    else{
-      workingJsonObject[label] = originalJsonObject[i];
-      if(groupByVariable == 'score'){
-        reorderedJsonObject.push(originalJsonObject[i]);
-      }
-    }
-  }
-
-  Object.keys(workingJsonObject).forEach(function(key){
-      for(i = 0; i < workingJsonObject[key].length; i++){
-        reorderedJsonObject.push(workingJsonObject[key][i]);
-      }
-  });
-
-  return reorderedJsonObject;
-}

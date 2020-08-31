@@ -1,0 +1,15 @@
+{
+  "name": "algorithms",
+  "version": "1.0.0",
+  "description": "Collection of NodeJS Implementations of Sorting and Searching Algorithms",
+  "main": "sort.js",
+  "dependencies": {
+    "mongodb": "^3.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rashmi Bachani",
+  "license": "ISC"
+}

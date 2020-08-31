@@ -1,0 +1,21 @@
+Comments
+1.	User Interface Comments – form User perspective
+•	The Tile size on each row should be same height and width to give the better appearance. I understand some content may need to extend the height , but we can have the … at the end and have the tool tip to show the actual text -   text-overflow: ellipsis;
+•	Tiles are not responsive, can use the flex layout to display the tiles.
+
+2.	Home.tsx comments
+
+•	General Comment
+o	we should keep always one thing in mind while creating a component, it should be loosely coupled. which means it should not have any hot dependency otherwise it can not be reusable in other places or in other application. 
+o	The idea of the component architecture is, application should build by using composition of different individual components. 
+o	we should design component like plug and play, for eg: the component file should run independently , if you give your component file to others it should run without any dependency
+o	we have to manage the dependency properly with props and events/actions.
+o	The other reason for loosely coupled is , changes on other place should not impact the component. 
+•	Home.tsx component comments
+o	It is really bad design to put multiple component under one file, rule is one component per file.
+o	RenderCard component looks fine – as the dependency are rightly decorated with props. only thing is move that to separate file and import where ever it has to be used. 
+o	RenderPage
+	No API (fetch api) call inside component to get the data for component this.getFeed() has to be moved out of component. because as mentioned in above rule, if your renderpage component has to be resused in other application, they might not have respective api as like your application. so All we have to do is , the output of the this.getFeed object has to be decorated as input props and it is the responsilbity of the application who uses the render page, has to prepare the this.getfeed data and pass to the component and that can be assigned to its state. 
+	Try to use routing instead of onIonChange , and header layour(tab) and tile layout all combined in RenderPage – which is against Single responsibility principle. 
+	Try to create header or menu component ( which contains group by domain, group by category, …) and other component for displaying the tiles based on selection. (usre react-router) 
+	This application use case , we can use Redux Store – on app init – you can make are request to feed and move it to store. and based on the action on header component, fetch the data form store to render the tile.

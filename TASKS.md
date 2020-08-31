@@ -23,6 +23,7 @@ DONE 3.a: Do this locally
 
 Task 4:
 - Connect React Frontend to Node Backend
+Blocked: Cannot seem to load local files. What is up with that?
 
 Task 5: 
 - On Page load, get the data stored in the database to identify the grouping of values.
