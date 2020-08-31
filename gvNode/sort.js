@@ -1,3 +1,9 @@
+/*
+    TODO: QuickSort - Debug the output. On the terminal run node sort.js, see the output, debug and figure out what needs to happen for the case when the midpoint, is, 0 as is in the second iteration of this array.
+
+    Video: https://courses.edx.org/courses/course-v1:UCSanDiegoX+ALGS200x+1T2019/courseware/4363c0c1d998453ea885eccb6998962e/186c1b4fa4ac44a488a5d25a7bbd5feb/?activate_block_id=block-v1%3AUCSanDiegoX%2BALGS200x%2B1T2019%2Btype%40sequential%2Bblock%40186c1b4fa4ac44a488a5d25a7bbd5feb
+*/
+
 //Array with 5555 listings and reviews:
 const { PerformanceObserver, performance } = require('perf_hooks');
 var data = require('./listings_and_reviews_5555.json');
@@ -9,6 +15,58 @@ const obs = new PerformanceObserver((items) => {
     performance.clearMarks(); 
   });
 obs.observe({ entryTypes: ['measure'] });
+
+
+// Quick Sort
+console.log("Quick Sort: ");
+data = [60, 40, 20, 30, 90, 80, 90, 40, 70, 60, 10];
+performance.mark('I');
+var sortedArrayMerge = quickSort(data, 0, data.length);
+console.log(sortedArrayMerge);
+performance.mark('J');
+performance.measure('I to J', 'I', 'J');
+
+function quickSort(data, left, right)
+{
+    console.log("Left: " + left + " Right: " + right);
+    if (left >= right)
+    {
+        return data;
+    }
+    var midpoint = partition(data, left, right);
+    //if(midpoint == 0) midpoint = 1;
+    console.log("Midpoint Index: " + midpoint);
+    quickSort(data, left, midpoint - 1);
+    //quickSort(data, midpoint + 1, right);
+    return data;
+}
+
+function partition(data, left, right)
+{
+    var pivot = data[left];
+    var midpoint = left;
+    console.log("------------------");
+    console.log("Partitioning on : " + pivot);
+    for (i = left + 1; i < right; i++)
+    {
+        console.log(data[i]);
+        if(data[i] <= pivot)
+        {
+            midpoint++;
+            var tmp = data[i];
+            data[i] = data[midpoint];
+            data[midpoint] = tmp;
+        }
+    }
+    
+    //This is for the final step of Quick Sort, to move the pivot element to it's location (in between the left and right)
+    var tmp = data[left];
+    data[left] = data[midpoint];
+    data[midpoint] = tmp;
+    
+    return midpoint;
+}
+
 
 //Function Calls:
 
@@ -30,7 +88,6 @@ countData = binarySearch(data, 0, data.length, 'moderate');
 console.log("Count of number of listings with cancellation policy :moderate: (This is incorrect, have to find a way to do this using Binary Search)" + countData);
 performance.mark('D');
 performance.measure('C to D', 'C', 'D');
-*/
 console.log("------------------------------");
 
 //Selection Sort:
@@ -53,6 +110,7 @@ var sortedArrayMerge = mergeSort(data, 'number_of_reviews');
 performance.mark('H');
 performance.measure('G to H', 'G', 'H');
 console.log("Id with largest number of Reviews: " + sortedArrayMerge[0]['_id'] + " Number of Reviews: " + sortedArrayMerge[0]['number_of_reviews']);
+*/
 
 //Problem Statement: Get count of listings with cancellation_policy = moderate
 //Linear Search: 

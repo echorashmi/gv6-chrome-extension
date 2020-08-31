@@ -1,0 +1,11 @@
+{
+  "name": "echorashmi",
+  "version": "0.0.1",
+  "description": "Popular Sorting & Searching Algorithms Implemented",
+  "main": "index.js",
+  "scripts": {
+    "test": "mergeSort"
+  },
+  "author": "Rashmi Bachani",
+  "license": "ISC"
+}
